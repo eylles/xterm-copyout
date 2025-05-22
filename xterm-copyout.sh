@@ -9,22 +9,27 @@ if [ -f "$config_file" ]; then
     . "$config_file"
 fi
 
-xtdump="/tmp/xterm-open.hst"
-choice="/tmp/xterm-open.out"
-cat "$@" | sed 's|^..5| |' > "$xtdump"
-export xtdump choice
-uxterm -geometry 188x40 -T XtermHist -e sh -c '\
-    cat "$xtdump" | \
-    fzf \
-    --height 100% \
-    --header "Xterm History" \
-    --header-first \
-    --cycle --ansi -m | \
-    tee > "$choice"'
-selected=$(cat "$choice")
-rm "$xtdump" "$choice"
+if [ -z "$xtdump" ] && [ -z "$choice" ]; then
+    xtdump="/tmp/xterm-open.hst"
+    choice="/tmp/xterm-open.out"
+    cat "$@" | sed 's|^..5||' > "$xtdump"
+    export xtdump choice
 
-if [ -n "$selected" ]; then
-    echo "$selected" | tr -d '\n' | xclip -selection clipboard
-    notify-send "copied" "$selected"
+    uxterm -geometry 188x40 -T XtermHist -e "$0"
+
+    selected=$(cat "$choice")
+    rm "$xtdump" "$choice"
+
+    if [ -n "$selected" ]; then
+        echo "$selected" | tr -d '\n' | xclip -selection clipboard
+        notify-send "copied" "$selected"
+    fi
+else
+        cat "$xtdump" | \
+        fzf \
+        --height 100% \
+        --header "Xterm History" \
+        --header-first \
+        --cycle --ansi -m | \
+        tee > "$choice"
 fi
