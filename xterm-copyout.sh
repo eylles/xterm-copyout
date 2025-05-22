@@ -35,6 +35,9 @@ else
         --height 100% \
         --header "Xterm History" \
         --header-first \
+        --bind alt-k:preview-up \
+        --bind alt-j:preview-down \
+        --bind='pgdn:half-page-down,pgup:half-page-up' \
         --cycle --ansi -m | \
         tee > "$choice"
 fi
