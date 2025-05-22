@@ -5,7 +5,7 @@ NAME = xterm-copyout
 .PHONY: install uninstall clean
 
 $(NAME):
-	cp xterm-copyout.sh $(NAME)
+	sed "s|@placeholder@|$(NAME)|" xterm-copyout.sh > $(NAME)
 
 install: $(NAME)
 	chmod 755 $(NAME)

@@ -1,21 +1,26 @@
 #!/bin/sh
 
-dir_name="shell"
+dir_name="@placeholder@"
 config_dir="${XDG_CONFIG_HOME:-${HOME}/.config}/${dir_name}"
-config_file="${config_dir}/fzfrc"
-
-if [ -f "$config_file" ]; then
-    # shellcheck source=/home/ed/.config/shell/fzfrc
-    . "$config_file"
-fi
+config_file="${config_dir}/configrc"
 
 if [ -z "$xtdump" ] && [ -z "$choice" ]; then
-    xtdump="/tmp/xterm-open.hst"
-    choice="/tmp/xterm-open.out"
+    geom="188x38"
+    name="XtermHist"
+
+    if [ -f "$config_file" ]; then
+        . "$config_file"
+    fi
+
+    # the line(s) that will be copied to clipboard
+    selected=""
+
+    xtdump="/tmp/xterm-open-$$.hst"
+    choice="/tmp/xterm-open-$$.out"
     cat "$@" | sed 's|^..5||' > "$xtdump"
     export xtdump choice
 
-    uxterm -geometry 188x40 -T XtermHist -e "$0"
+    uxterm -geometry "$geom"  -T "$name" -name "$name"  -e "$0"
 
     selected=$(cat "$choice")
     rm "$xtdump" "$choice"
