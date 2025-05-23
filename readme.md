@@ -35,7 +35,9 @@ XTerm*printAttributes: 2
 ! keybind overrides
 XTerm*VT100.Translations: #override \n\
     Ctrl <Key>slash: print-everything() \n\
-! ··· more UXTerm options ···
+! ··· more XTerm options ···
+
+
 ! UXTerm options
 ! ··· some UXTerm options ···
 UXTerm*printerCommand: sh -c 'xterm-open <&3' 3<&0
