@@ -29,7 +29,7 @@ Add this to your xterm and uxterm config in xresources
 ```c
 ! XTerm options
 ! ··· some XTerm options ···
-XTerm*printerCommand: sh -c 'xterm-open <&3' 3<&0
+XTerm*printerCommand: sh -c 'xterm-copyout <&3' 3<&0
 ! print with ansi colors
 XTerm*printAttributes: 2
 ! keybind overrides
@@ -40,7 +40,7 @@ XTerm*VT100.Translations: #override \n\
 
 ! UXTerm options
 ! ··· some UXTerm options ···
-UXTerm*printerCommand: sh -c 'xterm-open <&3' 3<&0
+UXTerm*printerCommand: sh -c 'xterm-copyout <&3' 3<&0
 ! print with ansi colors
 UXTerm*printAttributes: 2
 ! keybind overrides
