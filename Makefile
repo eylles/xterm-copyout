@@ -16,4 +16,4 @@ uninstall:
 	rm -vf $(BIN_LOC)/$(NAME)
 
 clean:
-	rm $(NAME)
+	rm -vf $(NAME)
